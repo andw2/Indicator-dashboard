@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchCities = async (setCityURLs, setCities, cities) => {
   
-  const response = await axios.get(`http://localhost:3000/api/0`);
+  const response = await axios.get(`http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/0`);
   console.log("City Response", response.data)
   response.data.cityNames.forEach((URL, index) => {
     const [, cityName] = URL.split("#");
@@ -25,12 +25,12 @@ export const fetchAdministration = async (
 ) => {
   if (city) {
     try {
-      const response = await axios.post("http://localhost:3000/api/2", {
+      const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/2", {
         cityName: cityURLs[city],
       });
 
       if (response.data === undefined) {
-        response = await axios.post("http://localhost:3000/api/2", {
+        response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/2", {
           cityName: cityURLs[city],
         });
       }
@@ -64,14 +64,14 @@ export const fetchIndicators = async (
 ) => {
   if (city) {
     try {
-      const response = await axios.post("http://localhost:3000/api/1", {
+      const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/1", {
         cityName: cityURLs[city],
       });
       console.log("indicators", response.data.indicatorNames);
 
       if (response.data === undefined) {
         // If database returns nothing, try again
-        response = await axios.post("http://localhost:3000/api/1", {
+        response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/1", {
           cityName: cityURLs[city],
         });
       }
@@ -110,7 +110,7 @@ export const fetchArea = async (
   setArea([]);
   if (admin) {
     try {
-      const response = await axios.post("http://localhost:3000/api/3", {
+      const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/3", {
         cityName: cityURLs[adminURLs["currCity"]],
         adminType: adminURLs[admin],
       });
@@ -118,7 +118,7 @@ export const fetchArea = async (
 
       if (response.data === undefined) {
         // If the database failed to return anything, try again
-        response = await axios.post("http://localhost:3000/api/3", {
+        response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/3", {
           cityName: cityURLs[adminURLs["currCity"]],
           adminType: adminURLs[admin],
         });
@@ -156,7 +156,7 @@ export const fetchLocations = async (
   setLocationURLs({});
   if (admin) {
     try {
-      const response = await axios.post("http://localhost:3000/api/6", {
+      const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/6", {
         cityName: cityURLs[adminURLs["currCity"]],
         adminType: adminURLs[admin],
       });
@@ -164,7 +164,7 @@ export const fetchLocations = async (
 
       if (response.data === undefined) {
         // If the database failed to return anything, try again
-        response = await axios.post("http://localhost:3000/api/6", {
+        response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/6", {
           cityName: cityURLs[adminURLs["currCity"]],
           adminType: adminURLs[admin],
         });
@@ -360,7 +360,7 @@ export const handleGenerateVisualization = async (
 
   const fetchData = async () => {
     const promises = Object.keys(selectedIndicators).map(async (index) => {
-      const response = await axios.post("http://localhost:3000/api/4", {
+      const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/4", {
         cityName: cityURLs[adminURLs["currCity"]],
         adminType: currentAdminType,
         adminInstance: currentAdminInstances,
@@ -369,7 +369,7 @@ export const handleGenerateVisualization = async (
         endTime: years[parseInt(index)].value2,
       });
   
-      const unitType = await axios.post("http://localhost:3000/api/5", {
+      const unitType = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/5", {
         subject: indicatorURLs[selectedIndicators[index]],
         predicate: "http://ontology.eil.utoronto.ca/ISO21972/iso21972#hasUnit"
       });
@@ -416,7 +416,7 @@ export const handleGenerateVisualization = async (
     try {
       // await Promise.all(
       //   Object.keys(selectedIndicators).map(async (index) => {
-      //     const response = await axios.post("http://localhost:3000/api/4", {
+      //     const response = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/4", {
       //       cityName: cityURLs[adminURLs["currCity"]],
       //       adminType: currentAdminType,
       //       adminInstance: currentAdminInstances,
@@ -425,7 +425,7 @@ export const handleGenerateVisualization = async (
       //       endTime: years[parseInt(index)].value2,
       //     });
 
-      //     const unitType = await axios.post("http://localhost:3000/api/5", {
+      //     const unitType = await axios.post("http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/5", {
       //       subject: indicatorURLs[selectedIndicators[index]],
       //       predicate: "http://ontology.eil.utoronto.ca/ISO21972/iso21972#hasUnit"
       //     });
