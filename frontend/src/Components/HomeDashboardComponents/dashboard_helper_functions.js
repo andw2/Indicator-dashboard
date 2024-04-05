@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchCities = async (data, setData) => {
-  const response = await axios.get(`http://localhost:3000/api/0`);
+  const response = await axios.get(`http://ec2-3-97-59-180.ca-central-1.compute.amazonaws.com:3000/api/0`);
   const tempDashData = {...data};
   tempDashData.availableCities = {};
 
